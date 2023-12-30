@@ -4,7 +4,7 @@ import { createSelector } from "reselect";
 const initialState = {
   cartproducts: [],
   totalCartItems: 0,
-  totalCartPrice: 0,
+  totalCartPrice: 0
 };
 
 export const modcartSlice = createSlice({
@@ -23,8 +23,8 @@ export const modcartSlice = createSlice({
             selectedvariant: action.payload.selectedvariant,
             addonlist: [...action.payload.addonlist],
             addonprice: action.payload.addonprice,
-            amount: 1,
-          },
+            amount: 1
+          }
         ],
         totalCartItems: state.totalCartItems + 1,
         totalCartPrice:
@@ -32,7 +32,7 @@ export const modcartSlice = createSlice({
           (action.payload.addonprice +
             action.payload.productprice -
             (action.payload.productprice * action.payload.discountpercent) /
-              100),
+              100)
       };
     },
     removeFromCart: (state, action) => {
@@ -47,14 +47,14 @@ export const modcartSlice = createSlice({
           (action.payload.addonprice +
             action.payload.productprice -
             (action.payload.productprice * action.payload.discountpercent) /
-              100),
+              100)
       };
     },
     clearCart: (state) => {
       return {
         cartproducts: [],
         totalCartItems: 0,
-        totalCartPrice: 0,
+        totalCartPrice: 0
       };
     },
     incrementProductAmount: (state, action) => {
@@ -63,9 +63,12 @@ export const modcartSlice = createSlice({
           cartproduct.productname === action.payload.productname
             ? {
                 ...cartproduct,
-                addonlist: [...cartproduct.addonlist, ...action.payload.addonlist],
+                addonlist: [
+                  ...cartproduct.addonlist,
+                  ...action.payload.addonlist
+                ],
                 addonprice: cartproduct.addonprice + action.payload.addonprice,
-                amount: cartproduct.amount + 1,
+                amount: cartproduct.amount + 1
               }
             : cartproduct
         ),
@@ -75,7 +78,7 @@ export const modcartSlice = createSlice({
           (action.payload.addonprice +
             action.payload.productprice -
             (action.payload.productprice * action.payload.discountpercent) /
-              100),
+              100)
       };
     },
     decrementProductAmount: (state, action) => {
@@ -91,7 +94,7 @@ export const modcartSlice = createSlice({
           (action.payload.addonprice +
             action.payload.productprice -
             (action.payload.productprice * action.payload.discountpercent) /
-              100),
+              100)
       };
     },
     clearAddon: (state, action) => {
@@ -102,10 +105,10 @@ export const modcartSlice = createSlice({
             : cartproduct
         ),
         totalCartItems: state.totalCartItems,
-        totalCartPrice: state.totalCartPrice - action.payload.addonprice,
+        totalCartPrice: state.totalCartPrice - action.payload.addonprice
       };
-    },
-  },
+    }
+  }
 });
 
 export const cartProducts = (state) => state.modcart.cartproducts;
@@ -115,7 +118,7 @@ export const cartTotalPrice = (state) => state.modcart.totalCartPrice;
 export const selectAmountInCart = createSelector(
   [
     (state) => state.modcart.cartproducts,
-    (state, customproduct) => customproduct,
+    (state, customproduct) => customproduct
   ],
   (cartState, customproductitem) => {
     try {
@@ -144,7 +147,7 @@ export const selectAmountInCart = createSelector(
 export const selectPriceInCart = createSelector(
   [
     (state) => state.modcart.cartproducts,
-    (state, customproduct) => customproduct,
+    (state, customproduct) => customproduct
   ],
   (cartState, customproductitem) => {
     try {
@@ -158,11 +161,12 @@ export const selectPriceInCart = createSelector(
             (cartitem) => cartitem.productname === customproductitem.productname
           );
           const cartpricematchamount =
+            cartproductmatcharray[0].addonprice +
             cartproductmatcharray[0].amount *
-            (cartproductmatcharray[0].productprice -
-              (cartproductmatcharray[0].productprice *
-                customproductitem.discountpercent) /
-                100);
+              (cartproductmatcharray[0].productprice -
+                (cartproductmatcharray[0].productprice *
+                  cartproductmatcharray[0].discountpercent) /
+                  100);
           return cartpricematchamount;
         } else {
           return 0;
@@ -182,7 +186,7 @@ export const {
   clearCart,
   incrementProductAmount,
   decrementProductAmount,
-  clearAddon,
+  clearAddon
 } = modcartSlice.actions;
 
 export default modcartSlice.reducer;

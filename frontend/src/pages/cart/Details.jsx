@@ -4,7 +4,6 @@ import { Delivery } from "../order/Delivery";
 import { Payment } from "../order/Payment";
 import { AddLocation } from "../order/AddLocation";
 import { Billing } from "../order/Billing";
-import { StateDbManager } from "../order/StateDbManager";
 import { PlaceOrder } from "../order/PlaceOrder";
 
 export const Details = () => {
@@ -42,9 +41,6 @@ export const Details = () => {
                 </div>
                 <div className="mx-auto">
                   <Payment />
-                </div>
-                <div>
-                <StateDbManager/>
                 </div>
                 <div className="mx-auto p-2">
                   <PlaceOrder />

@@ -1,17 +1,8 @@
-import { useDispatch } from "react-redux";
-import { clearAddon } from "../stores/cart/modcartSlice";
-import { useEffect } from "react";
-
 export const AddOnCard = ({
   addonarray,
   setCustomProduct,
   customproduct,
 }) => {
-  const dispatchFromAddon = useDispatch()
-
-  const clearAddonList = (productname) => {
-    dispatchFromAddon(clearAddon(productname))
-  }
 
   const toggleSelect = (addon) => {
     let addonname = addon.AddOnName;
@@ -56,9 +47,6 @@ export const AddOnCard = ({
               </div>
             );
           })}
-      </div>
-      <div>
-        <button className={"btn btn-accent"} onClick={() => {clearAddonList(customproduct.productname)}}>Clear Addons</button>
       </div>
     </div>
   );

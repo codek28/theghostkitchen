@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
-  clearOrderInit,
   createMongoOrder,
   getOrderInit,
   getOrderToken
@@ -21,6 +21,8 @@ export const usePlaceOnlineOrder = () => {
     "Click To Place Order"
   );
   const dispatchFromPlaceOnlineOrder = useDispatch();
+  const navigateFromPlaceOnlineOrder = useNavigate();
+
   const payobj = usePaymentCreator();
   const orderobj = useOrderCreator();
   const ordertoken = useSelector(getOrderToken);
@@ -40,10 +42,15 @@ export const usePlaceOnlineOrder = () => {
       setPlaceOnlineOrderAlert("Order Processing");
       dispatchFromPlaceOnlineOrder(createMongoPayment(payobj));
       dispatchFromPlaceOnlineOrder(createMongoOrder(orderobj));
-      if ((ordertoken !== "") & (paymentid !== "")) {
-        dispatchFromPlaceOnlineOrder(clearOrderInit());
-        window.location.replace("http://localhost:3000/order");
-      }
+    } else if (
+      userloginstatus &
+      (usergeoid !== "") &
+      (cartcontents.length > 0) &
+      (ordertoken !== "") &
+      (paymentid !== "")
+    ) {
+      setPlaceOnlineOrderAlert("Order Placed >> Check Orders");
+      navigateFromPlaceOnlineOrder("/order")
     } else if (
       orderinit &
       userloginstatus &
@@ -78,7 +85,18 @@ export const usePlaceOnlineOrder = () => {
     } else {
       setPlaceOnlineOrderAlert("Click above to place order");
     }
-  }, [orderinit, cartcontents, userloginstatus, usergeoid]);
+  }, [
+    orderinit,
+    cartcontents,
+    userloginstatus,
+    usergeoid,
+    ordertoken,
+    paymentid,
+    orderobj,
+    payobj,
+    dispatchFromPlaceOnlineOrder,
+    navigateFromPlaceOnlineOrder
+  ]);
 
   return placeonlineorderalert;
 };

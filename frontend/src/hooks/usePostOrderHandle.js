@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUid } from "../stores/user/userSlice";
 import {
   clearOrderDetails,
-  getOrderInit,
   getOrderToken
 } from "../stores/order/orderSlice";
 import {
@@ -25,7 +24,6 @@ export const usePostOrderHandle = () => {
   const ordertoken = useSelector(getOrderToken);
   const cartdiscount = useSelector(selectCartCoupon);
   const superdiscount = useSelector(selectSuperCoupon);
-  const orderinit = useSelector(getOrderInit);
   const paymentid = useSelector(selectPaymentID);
 
   const updateUserOrderDB = async () => {
@@ -101,7 +99,7 @@ export const usePostOrderHandle = () => {
       setPostOrderStatus("some error occured post order hook");
       console.log("some error occured post order hook");
     }
-  }, [orderinit]);
+  }, []);
 
   return postorderstatus;
 };

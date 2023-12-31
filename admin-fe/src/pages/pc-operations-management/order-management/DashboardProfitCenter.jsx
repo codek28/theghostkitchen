@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { CompletedOrderList, OrderList } from "./CompletedOrderList";
+import { CompletedOrderList } from "./CompletedOrderList";
 import { ActiveOrderList } from "./ActiveOrderList";
 
 export const DashboardProfitCenter = ({}) => {

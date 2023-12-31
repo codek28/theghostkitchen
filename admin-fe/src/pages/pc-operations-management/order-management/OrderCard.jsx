@@ -1,10 +1,8 @@
 import { useDispatch } from "react-redux";
 import { setAdminOrder } from "../../../stores/admin/adminSlice";
 import { completeOnlineOrder } from "../../../functions/completeOnlineOrder";
-import {useNavigate} from "react-router-dom"
 
 export const OrderCard = ({ orderobj }) => {
-  const navigateFromOrderCard = useNavigate()
   const dispatchFromOrderCard = useDispatch();
   const userid = orderobj.OrderUser.ID;
   const username = orderobj.OrderUser.Name;

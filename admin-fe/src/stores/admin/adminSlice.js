@@ -15,13 +15,13 @@ import { createSelector } from "reselect";
 // try to keep initial state in user object not as null, rather bunch of unselected options
 
 const initialState = {
-  admin: { uid: "", emailid: "", adminname: "", db: [] },
+  admin: { uid: "", emailid: "", db: [] },
   zone: "",
-  pc:"",
-  ordertoken:"",
+  pc: "",
+  ordertoken: "",
   status: "idle",
   isLoggedIn: false,
-  error: null,
+  error: null
 };
 // only one of the above property gets initialized
 
@@ -36,52 +36,48 @@ export const adminSlice = createSlice({
       return { ...state, isLoggedIn: false };
     },
     setAdminUid: (state, action) => {
+      const adminnestedstate = state.admin;
       return {
         ...state,
-        admin: { ...state.user, uid: action.payload },
+        admin: { ...adminnestedstate, uid: action.payload }
       };
     },
     setAdminEmailId: (state, action) => {
+      const adminnestedstate = state.admin;
       return {
         ...state,
-        admin: { ...state.user, emailid: action.payload },
-      };
-    },
-    setAdminName: (state, action) => {
-      return {
-        ...state,
-        admin: { ...state.user, adminname: action.payload },
+        admin: { ...adminnestedstate, emailid: action.payload }
       };
     },
     setAdminZone: (state, action) => {
       return {
         ...state,
-        zone: action.payload,
+        zone: action.payload
       };
     },
     setAdminPC: (state, action) => {
       return {
         ...state,
-        pc: action.payload,
+        pc: action.payload
       };
     },
     setAdminOrder: (state, action) => {
       return {
         ...state,
-        ordertoken: action.payload,
+        ordertoken: action.payload
       };
     },
     clearAdmin: (state) => {
       return {
-        admin: { uid: "", emailid: "", adminname: "", db: [] },
+        admin: { uid: "", emailid: "", db: [] },
         zone: "",
-        pc:"",
-        ordertoken:"",
+        pc: "",
+        ordertoken: "",
         status: "idle",
         isLoggedIn: false,
-        error: null,
+        error: null
       };
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loginAdmin.fulfilled, (state, action) => {
@@ -100,11 +96,10 @@ export const adminSlice = createSlice({
       state.isLoggedIn = false;
       state.error = action.payload;
     });
-  },
+  }
 });
 
 // check selectors
-export const getAdminName = (state) => state.admin.admin.username;
 export const getAdminNumber = (state) => state.admin.admin.emailid;
 export const getAdminUid = (state) => state.admin.admin.uid;
 export const getAdmin = (state) => state.admin.admin;
@@ -121,15 +116,18 @@ export const loginAdmin = createAsyncThunk(
   "admin/login",
   async (adminuid, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/api/admin/get-admin", {
-        method: "POST",
-        body: JSON.stringify({
-          uid: adminuid,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/admin/get-admin",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            uid: adminuid
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        }
+      );
       const res = response.text();
       return res;
     } catch (error) {
@@ -143,20 +141,22 @@ export const loginAdmin = createAsyncThunk(
   }
 );
 
-
 export const updateOrderDB = createAsyncThunk(
   "order/update",
   async (ordertoken, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:3001/api/order/update-online-order", {
-        method: "POST",
-        body: JSON.stringify({
-          OrderToken: ordertoken
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
+      const response = await fetch(
+        "http://localhost:3001/api/order/update-online-order",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            OrderToken: ordertoken
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
         }
-      });
+      );
       const res = response.text();
       return res;
     } catch (error) {
@@ -173,13 +173,13 @@ export const updateOrderDB = createAsyncThunk(
 export const {
   setAdminUid,
   setAdminPhone,
-  setAdminName,
+  setAdminEmailId,
   setAdminZone,
   setAdminPC,
   setAdminOrder,
   clearAdmin,
   setLogin,
-  clearLogin,
+  clearLogin
 } = adminSlice.actions;
 
 export default adminSlice.reducer;

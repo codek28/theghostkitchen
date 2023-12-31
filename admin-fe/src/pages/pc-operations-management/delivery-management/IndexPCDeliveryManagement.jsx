@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
 import { ProfitCenterDeliveryTracking } from "./ProfitCenterDeliveryTracking";
 import { useSelector, useDispatch } from "react-redux";
 import { getPage, setPage } from "../../../stores/page/pageSlice";
 import { DeliveryPartnerPage } from "./DeliveryPartnerPage";
 
 export const IndexPCDeliveryManagement = ({}) => {
-  const [somestate, setSomeState] = useState([]);
   const currentpage = useSelector(getPage);
   const dispatchFromPCDelivery = useDispatch();
 

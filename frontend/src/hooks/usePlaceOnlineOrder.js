@@ -37,7 +37,8 @@ export const usePlaceOnlineOrder = () => {
       orderinit &
       userloginstatus &
       (usergeoid !== "") &
-      (cartcontents.length > 0)
+      (cartcontents.length > 0) &
+      (ordertoken === "")
     ) {
       setPlaceOnlineOrderAlert("Order Processing");
       dispatchFromPlaceOnlineOrder(createMongoPayment(payobj));
@@ -49,7 +50,7 @@ export const usePlaceOnlineOrder = () => {
       (ordertoken !== "") &
       (paymentid !== "")
     ) {
-      setPlaceOnlineOrderAlert("Order Placed >> Check Orders");
+      setPlaceOnlineOrderAlert("Order Placed");
       navigateFromPlaceOnlineOrder("/order")
     } else if (
       orderinit &
@@ -94,8 +95,6 @@ export const usePlaceOnlineOrder = () => {
     paymentid,
     orderobj,
     payobj,
-    dispatchFromPlaceOnlineOrder,
-    navigateFromPlaceOnlineOrder
   ]);
 
   return placeonlineorderalert;

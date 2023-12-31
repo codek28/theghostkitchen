@@ -2,7 +2,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { clearAdmin } from "../../stores/admin/adminSlice";
+import {
+  clearAdmin,
+  setAdminEmailId,
+  setAdminUid,
+  setLogin
+} from "../../stores/admin/adminSlice";
 import { useForm } from "react-hook-form";
 
 export const Logger = () => {
@@ -10,6 +15,7 @@ export const Logger = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -22,6 +28,7 @@ export const Logger = () => {
     signOut(auth)
       .then(() => {
         dispatchFromLogger(clearAdmin());
+        reset()
         console.log("signOut confirmed");
       })
       .catch((error) => {
@@ -34,6 +41,9 @@ export const Logger = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("signed in", user);
+        dispatchFromLogger(setAdminUid(user.uid));
+        dispatchFromLogger(setAdminEmailId(user.email));
+        dispatchFromLogger(setLogin())
       })
       .catch((error) => {
         console.log("crashed at sign in functionality" + error);

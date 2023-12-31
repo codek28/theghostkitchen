@@ -35,12 +35,9 @@ export const DeliveryPartnerPage = ({}) => {
             <div>
               <div className="flex sm:flex-col lg:flex-row gap-2">
                 <div className="flex flex-col gap-2 p-2">
-                  <h2 className="bg-secondary mx-auto">Order Token: {orderstate.OrderToken}</h2>
+                  <h2 className="bg-secondary mx-auto">Order Token: {ordertoken}</h2>
                   <div>
-                    <DeliveryPartnerMap ordertoken={orderstate.OrderToken} geoid={orderstate.OrderLocation.DispatchedFrom} />
-                  </div>
-                  <div className="card-actions">
-                    <button className="btn mx-auto">Buy Now</button>
+                    <DeliveryPartnerMap ordertoken={ordertoken} geoid={orderstate.OrderLocation.DispatchedFrom} />
                   </div>
                 </div>
               </div>

@@ -21,4 +21,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
-connectAuthEmulator(auth, "http://127.0.0.1:9099")
+// connectAuthEmulator(auth, "http://127.0.0.1:9099")

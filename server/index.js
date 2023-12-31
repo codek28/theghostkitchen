@@ -7,9 +7,16 @@ const cors = require("cors");
 const db = require("./db/index");
 const app = express();
 
+// secure routes
+
 const paymentRoutes = require("./Routes/SecureRoutes/paymentRoute");
 const orderRoutes = require("./Routes/SecureRoutes/orderRouter");
 const userRoutes = require("./Routes/SecureRoutes/userRouter");
+const merchantRoutes = require("./Routes/SecureRoutes/merchantRouter");
+const adminRoutes = require("./Routes/SecureRoutes/adminRouter")
+const geoRoutes = require("./Routes/SecureRoutes/geoRouter");
+
+// public routes
 
 const menuRoutes = require("./Routes/PublicRoutes/menuRouter");
 const zoneRoutes = require("./Routes/PublicRoutes/zoneRouter");
@@ -17,9 +24,6 @@ const productRoutes = require("./Routes/PublicRoutes/productRouter");
 const categoryRoutes = require("./Routes/PublicRoutes/categoryRouter");
 const pcRoutes = require("./Routes/PublicRoutes/pcRouter");
 const billingRouter = require("./Routes/PublicRoutes/billingRouter");
-
-const merchantRoutes = require("./Routes/SecureRoutes/merchantRouter");
-const geoRoutes = require("./Routes/SecureRoutes/geoRouter");
 
 var corsOptions = {
   origin: [
@@ -50,9 +54,9 @@ app.listen(PORT, () => {
 
 // public routes
 
-app.use("/api/menu", menuRoutes); // working now
+app.use("/api/menu", menuRoutes); 
 
-app.use("/api/zone", zoneRoutes); // working now
+app.use("/api/zone", zoneRoutes); 
 
 app.use("/api/product", productRoutes);
 
@@ -63,6 +67,8 @@ app.use("/api/profitcenter", pcRoutes);
 app.use("/api/billing", billingRouter);
 
 // secure routes
+
+app.use("/api/admin", adminRoutes);
 
 app.use("/api/payment", paymentRoutes);
 

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import { UnderDev } from "../../../components/UnderDev";
 
-export const ProfitCenterDeliveryTracking = ({}) => {
+export const ProfitCenterDeliveryTracking = () => {
   return (
     <div>
       <UnderDev />

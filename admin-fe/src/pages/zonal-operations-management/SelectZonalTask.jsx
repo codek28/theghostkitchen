@@ -1,14 +1,3 @@
-import { useState, useEffect } from "react";
-
-export const SelectZonalTask = ({
- 
-}) => {
-  const [somestate, setSomeState] = useState([]);
-  
-
-  return (
-    <div>
-      
-    </div>
-  );
+export const SelectZonalTask = ({}) => {
+  return <div></div>;
 };

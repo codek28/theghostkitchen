@@ -1,15 +1,9 @@
-import { useState, useEffect } from "react";
 import { UnderDev } from "../../components/UnderDev";
 
-export const IndexZonalTask = ({
- 
-}) => {
-  const [somestate, setSomeState] = useState([]);
-  
-
+export const IndexZonalTask = ({}) => {
   return (
     <div>
-      <UnderDev/>
+      <UnderDev />
     </div>
   );
 };

@@ -1,10 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 
-// admin related db not complete
-// all admin entries to be re-seeded with arrays
-
-// event seed
+// event seed // useful later
 {/*
 async function event_seed() {
   const uri =
@@ -50,7 +47,7 @@ async function event_seed() {
 event_seed();
 */}
 
-// event teams seed
+// event teams seed // useful later
 {/*
 async function event_teams_seed() {
   const uri =
@@ -95,7 +92,8 @@ async function event_teams_seed() {
 event_teams_seed();
 */}
 
-// admin roles seed
+// admin profile seed // incomplete
+
 {/*
 async function admin_profile_seed() {
   const uri =
@@ -241,7 +239,8 @@ admin_pcops_seed();
 
 */}
 
-// admin zonal ops seed
+// admin zonal ops seed // incomplete
+
 {/*
 async function admin_zonalops_seed() {
   const uri =
@@ -292,7 +291,8 @@ async function admin_zonalops_seed() {
 admin_zonalops_seed();
 */}
 
-// admin business developers seed
+// admin business developers seed // incomplete
+
 {/*
 async function admin_businessdev_seed() {
   const uri =
@@ -339,7 +339,8 @@ async function admin_businessdev_seed() {
 admin_businessdev_seed();
 */}
 
-// admin business developers seed
+// admin business developers seed // incomplete
+
 {/*
 async function admin_control_seed() {
   const uri =
@@ -379,6 +380,7 @@ admin_control_seed();
 */}
 
 // geolocation pc seed
+
 {/*
 async function geo_pc_seed() {
     const uri =
@@ -447,7 +449,8 @@ async function geo_pc_seed() {
  geo_pc_seed();
 */}
 
-// geolocation event seed
+// geolocation event seed // useful later
+
 {/*
 async function geo_ev_seed() {
   const uri =

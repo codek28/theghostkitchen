@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { mappls } from "mappls-web-maps";
 import { getAdminZone } from "../../../stores/admin/adminSlice";
 import { useSelector } from "react-redux";
+import { Map } from "./Map";
 
 export const DeliveryPartnerMap = ({ ordertoken, geoid }) => {
   const [geostate, setGeoState] = useState([]);
@@ -22,54 +22,29 @@ export const DeliveryPartnerMap = ({ ordertoken, geoid }) => {
       .catch((e) => console.log(e));
   }, [geoid]);
 
-  const styleMap = { width: "99%", height: "99vh", display: "inline-block" };
-  const mapProps = {
-    center: [25.325116, 74.648691],
-    traffic: false,
-    zoom: 14,
-    geolocation: false,
-    clickableIcons: false
-  };
   var locstatebhl = { lng: 74.64869, lat: 25.325116 };
   var locstatekot = { lng: 75.828804, lat: 25.200249 };
   let locstate = adminzone === "RJ06BHL" ? locstatebhl : locstatekot;
-  var mapObject, storeMarker, userMarker;
-  var mapplsClassObject = new mappls();
-
-  mapplsClassObject.initialize("74e70799480ca8ec5c169db770a51e7a", () => {
-    mapObject = mapplsClassObject.Map({ id: "map", properties: mapProps });
-
-    //load map layers/components after map load, inside this callback (Recommended)
-    mapObject.on("load", () => {
-      // Activites after mapload
-      try {
-        storeMarker = mapplsClassObject.Marker({
-          map: mapObject,
-          position: locstate
-        });
-        userMarker = mapplsClassObject.Marker({
-          map: mapObject,
-          position: {
-            lng: geostate?.Coordinates.Longitude,
-            lat: geostate?.Coordinates.Latitude
-          }
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    });
-  });
 
   return (
     <div>
       <div className="card bg-base-100 shadow-xl">
-        <div id="map" style={styleMap}></div>
         <div className="card-body">
           <h2 className="card-title">
             Order Token - {ordertoken}
             <div className="badge badge-secondary">Active</div>
           </h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
+          <h2>Address</h2>
+          {geostate.data?.length > 0 && (
+            <div>
+              <h2>{geostate.data[0].Address.Line1Name}</h2>
+              <h2>{geostate.data[0].Address.Line2Street}</h2>
+              <h2>{geostate.data[0].Address.Line3Locality}</h2>
+            </div>
+          )}
+          {(geostate.data?.length > 0) && (
+            <Map locstate={locstate} geoobj={geostate.data[0]} />
+          )}
         </div>
       </div>
     </div>

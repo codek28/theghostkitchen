@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {useSelector } from "react-redux"
 
 import { Header } from "../components/Header";
 import { BottomNav } from "../components/BottomNav";
@@ -14,7 +15,16 @@ import { IndexBzDev } from "../pages/business-developement/IndexBzDev";
 import { IndexBzDevTask } from "../pages/business-developement/IndexBzDevTask";
 import { IndexAdminhome } from "../pages/admin-home/IndexAdminhome";
 
+import { getAdminLogin } from "../stores/admin/adminSlice";
+
 export const Navigation = () => {
+  const loginstatus = useSelector(getAdminLogin);
+
+  function RequireAuth( children ) {  
+    return loginstatus === true ? children : <IndexLogger/>;
+  }
+
+
   return (
     <BrowserRouter>
       <Header />
@@ -31,7 +41,7 @@ export const Navigation = () => {
             <Route path="/pcops/:task" element={<IndexPCTask />} />
             <Route path="/zonalops" element={<IndexZonalOps />} />
             <Route path="/zonalops/:task" element={<IndexZonalTask />} />
-            <Route path="/bzdev" element={<IndexBzDev />} />
+            <Route path="/bzdev" element={RequireAuth(<IndexBzDev />)} />
             <Route path="/bzdev/:task" element={<IndexBzDevTask />} />
           </Routes>
         </div>

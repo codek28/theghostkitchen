@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "crypto-browserify": "^3.12.0",
     "daisyui": "^2.43.0",
+    "dotenv": "^16.4.5",
     "firebase": "^9.17.1",
     "firebase-tools": "^12.9.1",
     "otp-input-react": "^0.3.0",
@@ -56,5 +57,8 @@
   "main": "tailwind.config.js",
   "author": "kanishk",
   "license": "ISC",
-  "description": "user frontend for ghost kitchen"
+  "description": "user frontend for ghost kitchen",
+  "devDependencies": {
+    "dotenv-webpack": "^8.0.1"
+  }
 }

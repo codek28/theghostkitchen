@@ -5,6 +5,7 @@ import { Payment } from "../order/Payment";
 import { AddLocation } from "../order/AddLocation";
 import { Billing } from "../order/Billing";
 import { PlaceOrder } from "../order/PlaceOrder";
+import { Razorpay } from "../order/Razorpay";
 
 export const Details = () => {
   return (
@@ -38,9 +39,6 @@ export const Details = () => {
               <div className="flex flex-col gap-4 mx-auto">
                 <div>
                   <Billing />
-                </div>
-                <div className="mx-auto">
-                  <Payment />
                 </div>
                 <div className="mx-auto p-2">
                   <PlaceOrder />

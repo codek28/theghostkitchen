@@ -11,6 +11,7 @@ import { selectGeoId } from "../stores/location/geoSlice";
 import {
   getOrderCookingInstruction,
   getOrderDeliveryStatus,
+  getOrderId,
   getOrderPC
 } from "../stores/order/orderSlice";
 import { cartProducts, cartTotalAmount } from "../stores/cart/modcartSlice";
@@ -37,6 +38,7 @@ export const useOrderCreator = () => {
   const deliverystatus = useSelector(getOrderDeliveryStatus);
   const instruction = useSelector(getOrderCookingInstruction);
   const paymentmode = useSelector(selectPaymentMethod);
+  const orderid = useSelector(getOrderId)
 
   const [orderinfo, setOrderInfo] = useState({
     OrderID: "",
@@ -79,7 +81,7 @@ export const useOrderCreator = () => {
       try {
         if (userloginstatus & (cartitems > 0)) {
           setOrderInfo({
-            OrderID: "",
+            OrderID: orderid,
             Contents: [...ordercontents],
             OrderStatus: "ACTIVE",
             OrderDetails: {
@@ -102,7 +104,7 @@ export const useOrderCreator = () => {
             OrderPayment: {
               PaymentAmount: orderprice,
               PaymentMode: paymentmode,
-              PaymentStatus: "UN-PAID",
+              PaymentStatus: "PAID",
               PaymentID: ""
             },
             OrderForPC: orderpc,
@@ -127,6 +129,7 @@ export const useOrderCreator = () => {
 
     stateCheck();
   }, [
+    orderid,
     ordercontents,
     paymentmode,
     ordergeoid,

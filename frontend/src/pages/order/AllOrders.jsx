@@ -8,9 +8,10 @@ import { Order } from "./Order";
 export const AllOrders = () => {
   const [allorders, setOnlineOrder] = useState([]);
   const userid = useSelector(getUid);
+  const ipaddractiveorder = process.env.REACT_APP_IPADDR + '/api/order/get-user-active-orders'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/order/get-user-active-orders", {
+    fetch(ipaddractiveorder, {
       method: "POST",
       body: JSON.stringify({
         userid: userid
@@ -37,10 +38,10 @@ export const AllOrders = () => {
         <div className="collapse-title">Select To Track Placed Orders</div>
         <div>
           <div className="p-2 grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-            {allorders.length > 0 &&
+            {allorders.length > 0 ?
               allorders.map((orderobj, index) => {
                 return <Order orderobj={orderobj} key={index} />;
-              })}
+              }) : <div>Loading</div>}
           </div>
         </div>
       </div>

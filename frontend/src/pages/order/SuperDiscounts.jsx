@@ -10,9 +10,10 @@ export const SuperDiscounts = ({ discountname, discountleft }) => {
   const dispatchFromSuperDiscounts = useDispatch();
   const deliverycharge = useSelector(selectDeliveryCharge);
   const [superdiscountfetch, setSuperDiscountFetch] = useState({});
+  const ipaddrsuperdis = process.env.REACT_APP_IPADDR + '/api/billing/get-super-discount'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/billing/get-super-discount", {
+    fetch(ipaddrsuperdis, {
       method: "POST",
       body: JSON.stringify({
         superdiscountcode: discountname

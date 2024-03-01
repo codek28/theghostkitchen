@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 export const Ratebutton = ({ customproduct }) => {
   
-  useEffect(()=>{},[customproduct])
 
   return (
     <div className="indicator">

@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 
 export const CenterDiscountButton = ({ DiscountID }) => {
   const [discountobject, setDiscountObject] = useState({});
+  const ipaddrpricecutdis = process.env.REACT_APP_IPADDR + '/api/billing/get-pricecut-discount'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/billing/get-pricecut-discount", {
+    fetch(ipaddrpricecutdis, {
       method: "POST",
       body: JSON.stringify({
         pricecutcode: DiscountID,

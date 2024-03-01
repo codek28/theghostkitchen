@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 
 const initialState = {
   paymentcomponents: {
@@ -177,20 +178,48 @@ export const selectSuperDiscountAmount = (state) =>
 export const selectCartCoupon = (state) => state.payment.cartdiscount;
 export const selectSuperCoupon = (state) => state.payment.superdiscount;
 
+export const selectOrderPrice = createSelector(
+  [
+    (state) => state.modcart.totalCartPrice,
+    (state) => state.payment.paymentcomponents.cartdiscountpercent,
+    (state) => state.payment.paymentcomponents.deliverycharge,
+    (state) => state.payment.paymentcomponents.superdiscount
+  ],
+  (
+    cartamount,
+    cartdiscountpercent,
+    deliverychargeamount,
+    superdiscountamount
+  ) => {
+    try {
+      let orderpayable =
+        cartamount +
+        deliverychargeamount +
+        4.5 -
+        (cartamount * cartdiscountpercent) / 100 -
+        superdiscountamount;
+      let totalorderamount = (orderpayable * 105) / 100;
+      return totalorderamount;
+    } catch (e) {
+      console.log(e);
+    }
+  }
+);
+
+const ipaddronlinepayment =
+  process.env.REACT_APP_IPADDR + "/api/payment/create-online-payment";
+
 export const createMongoPayment = createAsyncThunk(
   "payment/create",
   async (payinfo, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/payment/create-online-payment",
-        {
-          method: "POST",
-          body: JSON.stringify(payinfo),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
+      const response = await fetch(ipaddronlinepayment, {
+        method: "POST",
+        body: JSON.stringify(payinfo),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
         }
-      )
+      })
         .then((data) => data.json())
         .then((body) => body);
       return response;

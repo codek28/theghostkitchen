@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUid } from "../stores/user/userSlice";
 import {
   clearOrderDetails,
+  getOrderInit,
   getOrderToken
 } from "../stores/order/orderSlice";
 import {
@@ -25,9 +26,14 @@ export const usePostOrderHandle = () => {
   const cartdiscount = useSelector(selectCartCoupon);
   const superdiscount = useSelector(selectSuperCoupon);
   const paymentid = useSelector(selectPaymentID);
+  const orderinit = useSelector(getOrderInit)
+
+  const ipaddrupdateorder = process.env.REACT_APP_IPADDR + '/api/user/add-active-order'
+  const ipaddrupdatecartdis = process.env.REACT_APP_IPADDR + '/api/user/update-user-cart-benefits'
+  const ipaddrupdatesuperdis = process.env.REACT_APP_IPADDR + '/api/user/update-user-super-benefits'
 
   const updateUserOrderDB = async () => {
-    await fetch("http://localhost:3001/api/user/add-active-order", {
+    await fetch(ipaddrupdateorder, {
       method: "POST",
       body: JSON.stringify({
         userID: userid,
@@ -47,7 +53,7 @@ export const usePostOrderHandle = () => {
   };
 
   const updateCartDiscountDB = async () => {
-    await fetch("http://localhost:3001/api/user/update-user-cart-benefits", {
+    await fetch(ipaddrupdatecartdis, {
       method: "POST",
       body: JSON.stringify({
         ID: userid,
@@ -67,7 +73,7 @@ export const usePostOrderHandle = () => {
   };
 
   const updateSuperDiscountDB = async () => {
-    await fetch("http://localhost:3001/api/user/update-user-super-benefits", {
+    await fetch(ipaddrupdatesuperdis, {
       method: "POST",
       body: JSON.stringify({
         ID: userid,
@@ -87,7 +93,7 @@ export const usePostOrderHandle = () => {
   };
 
   useEffect(() => {
-    if ((ordertoken !== "") & (paymentid !== "")) {
+    if ((ordertoken !== "") & (paymentid !== "") & (!orderinit)) {
       updateUserOrderDB() && updateCartDiscountDB() && updateSuperDiscountDB();
       dispatchPostOrder(clearCart());
       dispatchPostOrder(clearPaymentDetails());

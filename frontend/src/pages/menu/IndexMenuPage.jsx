@@ -11,9 +11,10 @@ export const IndexMenuPage = () => {
   const referenceurlparams = useParams();
   const [pcbilling, setPCBilling] = useState([]);
   const profitcenterid = referenceurlparams.pcid;
+  const ipaddrpcbillings = process.env.REACT_APP_IPADDR + '/api/profitcenter/get-pc-billings'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/profitcenter/get-pc-billings", {
+    fetch(ipaddrpcbillings, {
       method: "POST",
       body: JSON.stringify({
         pcid: profitcenterid,

@@ -3,7 +3,7 @@ import { PriceCutButton } from "./PriceCutButton";
 export const PricecutDiscountButton = ({ pricecutarray, incrementdiscount }) => {
 
   return (
-    <div>
+    <div className="flex flex-col-2">
       {pricecutarray.length === 4 ?
         pricecutarray
           .filter((pricecutarr) => {

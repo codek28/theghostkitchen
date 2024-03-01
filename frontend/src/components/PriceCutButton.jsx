@@ -7,9 +7,10 @@ export const PriceCutButton = ({ discountobject, incrementdiscount }) => {
   const discountpercent = discountfetch.discountobj
     ? discountfetch.discountobj.Percentage
     : 0;
+    const ipaddrpricecutbtn = process.env.REACT_APP_IPADDR + '/api/billing/get-pricecut-discount';
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/billing/get-pricecut-discount", {
+    fetch(ipaddrpricecutbtn, {
       method: "POST",
       body: JSON.stringify({
         pricecutcode: discountcode,
@@ -19,14 +20,14 @@ export const PriceCutButton = ({ discountobject, incrementdiscount }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setDiscountFetch(data))
+      .then((data) => setDiscountFetch(data) & incrementdiscount(discountpercent))
       .catch((e) => console.log(e));
-    incrementdiscount(discountpercent);
+    ;
   }, [discountpercent]);
 
   return (
     <div>
-      <button className="btn">
+      <button className="btn btn-sm">
         {discounttype}
         <div className="badge badge-secondary mx-2">{discountpercent}</div>
       </button>

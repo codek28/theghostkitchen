@@ -113,12 +113,14 @@ export const {
 // create thunk to fetch user location from db once sign in is done
 // check again async thunk functionality
 
+const ipaddrusergeo = process.env.REACT_APP_IPADDR + '/api/geo/get-user-geo'
+
 export const FindUserGeo = createAsyncThunk(
   "geo/find",
   async (userid, { rejectWithValue }) => {
     try {
       const responseForGeo = await fetch(
-        "http://localhost:3001/api/geo/get-user-geo",
+        ipaddrusergeo,
         {
           method: "POST",
           body: JSON.stringify({
@@ -143,12 +145,14 @@ export const FindUserGeo = createAsyncThunk(
   }
 );
 
+const ipaddrcreateusergeo = process.env.REACT_APP_IPADDR + '/api/geo/create-user-geo'
+
 export const CreateNewAddress = createAsyncThunk(
   "geo/create",
   async (geoInfo, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/geo/create-user-geo",
+        ipaddrcreateusergeo,
         {
           method: "POST",
           body: JSON.stringify(geoInfo),

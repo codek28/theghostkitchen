@@ -129,12 +129,15 @@ export const getUserLogin = (state) => state.user.isLoggedIn;
 export const getLoginStatus = (state) => state.user.status;
 export const getUserZone = (state) => state.user.zone;
 
+const ipaddrgetuser = process.env.REACT_APP_IPADDR + '/api/user/get-user'
+const ipaddrgetuserbenefits = process.env.REACT_APP_IPADDR + '/api/user/get-user-benefits'
+
 export const findUser = createAsyncThunk(
   "user/login",
   async (useruid, { rejectWithValue }) => {
     try {
       const responseForUser = await fetch(
-        "http://localhost:3001/api/user/get-user",
+        ipaddrgetuser,
         {
           method: "POST",
           body: JSON.stringify({
@@ -148,7 +151,7 @@ export const findUser = createAsyncThunk(
         .then((data) => data.json())
         .then((body) => body);
       const responseForUserBenefits = await fetch(
-        "http://localhost:3001/api/user/get-user-benefits",
+        ipaddrgetuserbenefits,
         {
           method: "POST",
           body: JSON.stringify({
@@ -173,12 +176,15 @@ export const findUser = createAsyncThunk(
   }
 );
 
+const ipaddrcreateuser = process.env.REACT_APP_IPADDR + '/api/user/create-user'
+const ipaddrcreateuserbenefits = process.env.REACT_APP_IPADDR + '/api/user/create-user-benefits'
+
 export const registerUser = createAsyncThunk(
   "user/register",
   async (userInfo, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/user/create-user",
+        ipaddrcreateuser,
         {
           method: "POST",
           body: JSON.stringify({
@@ -209,7 +215,7 @@ export const registerUserBenefits = createAsyncThunk(
   async (useruid, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/user/create-user-benefits",
+        ipaddrcreateuserbenefits,
         {
           method: "POST",
           body: JSON.stringify({

@@ -13,7 +13,7 @@ export const LandingFeedbox = () => {
             href="#0"
             alt="ghostkitchen"
             src={PizzaFrog}
-            className="rounded-box w-[80%] h-[80%]"
+            className="rounded-box w-[70%] h-[50%]"
           />
         </div>
         <div className="carousel-item flex flex-col mx-auto gap-2">
@@ -22,7 +22,7 @@ export const LandingFeedbox = () => {
             href="#0"
             alt="ghostkitchen"
             src={FoodIllustration1}
-            className="rounded-box w-[80%] h-[80%]"
+            className="rounded-box w-[70%] h-[50%]"
           />
         </div>
         <div className="carousel-item flex flex-col  mx-auto gap-2">
@@ -31,7 +31,7 @@ export const LandingFeedbox = () => {
             href="#0"
             alt="ghostkitchen"
             src={DroneDelivery}
-            className="rounded-box w-[80%] h-[80%]"
+            className="rounded-box w-[70%] h-[50%]"
           />
         </div>
         <div className="carousel-item flex flex-col  mx-auto gap-2">
@@ -42,7 +42,7 @@ export const LandingFeedbox = () => {
             href="#0"
             alt="ghostkitchen"
             src={FoodPreparing}
-            className="rounded-box w-[80%] h-[80%]"
+            className="rounded-box w-[70%] h-[50%]"
           />
         </div>
       </div>

@@ -8,16 +8,17 @@ import { getUserZone } from "../../stores/user/userSlice";
 export const PCList = () => {
   const [zoneprofitcenters, setZoneProfitCenters] = useState([]);
   const activeZone = useSelector(getUserZone);
+  const ipaddrpc = process.env.REACT_APP_IPADDR + "/api/zone/get-profit-center";
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/zone/get-profit-center", {
+    fetch(ipaddrpc, {
       method: "POST",
       body: JSON.stringify({
-        zoneid: activeZone,
+        zoneid: activeZone
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
+        "Content-type": "application/json; charset=UTF-8"
+      }
     })
       .then((response) => response.json())
       .then((data) => setZoneProfitCenters(data))
@@ -25,13 +26,16 @@ export const PCList = () => {
   }, []);
 
   return (
-    <div className="">
-      {zoneprofitcenters.length > 0 &&
+    <div>
+      {zoneprofitcenters.length > 0 ? (
         zoneprofitcenters.map((profitcenter, index) => {
           return (
             <ProfitCenterListCard profitcenter={profitcenter} key={index} />
           );
-        })}
+        })
+      ) : (
+        <div>Loading</div>
+      )}
     </div>
   );
 };

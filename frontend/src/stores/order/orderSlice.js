@@ -168,12 +168,14 @@ export const {
   clearOrderDetails
 } = orderSlice.actions;
 
+const ipaddrcreateonlineorder = process.env.REACT_APP_IPADDR + '/api/order/create-online-order'
+
 export const createMongoOrder = createAsyncThunk(
   "order/create",
   async (orderinfo, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/order/create-online-order",
+        ipaddrcreateonlineorder,
         {
           method: "POST",
           body: JSON.stringify(orderinfo),

@@ -8,9 +8,10 @@ export const CenterDiscountAlertCard = () => {
   const referenceurlparams = useParams();
   const [profitcenterbilling, setProfitCenterBilling] = useState([]);
   const profitcenterid = referenceurlparams.pcid
+  const ipaddrpcbilling = process.env.REACT_APP_IPADDR + '/api/profitcenter/get-pc-billings'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/profitcenter/get-pc-billings", {
+    fetch(ipaddrpcbilling, {
       method: "POST",
       body: JSON.stringify({
         pcid: profitcenterid,

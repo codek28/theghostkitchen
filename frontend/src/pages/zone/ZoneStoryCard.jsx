@@ -2,12 +2,14 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getUserZone } from "../../stores/user/userSlice";
 
+
 export const ZoneStoryCard = () => {
   const [zonestory, setZoneStory] = useState([]);
   const activeZone = useSelector(getUserZone);
+  const ipaddr = process.env.REACT_APP_IPADDR + '/api/zone/get-zone-story'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/zone/get-zone-story", {
+    fetch(ipaddr, {
       method: "POST",
       body: JSON.stringify({
         zoneid: activeZone,

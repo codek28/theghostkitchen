@@ -6,9 +6,10 @@ export const MenuStoryCard = ({ DiscountList }) => {
   const [menustory, setMenuStory] = useState([]);
   const referenceparam = useParams();
   const activeMenu = referenceparam.menuid;
+  const ipaddrmenustory = process.env.REACT_APP_IPADDR + '/api/menu/get-menu-story'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/menu/get-menu-story", {
+    fetch(ipaddrmenustory, {
       method: "POST",
       body: JSON.stringify({
         menuid: activeMenu,

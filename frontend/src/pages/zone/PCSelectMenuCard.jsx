@@ -9,11 +9,11 @@ import MenuButton from "../../components/MenuButton"
 export const PCSelectMenuCard = ({ profitcenter }) => {
   const [pcmenulist, setPCMenuList] = useState([]);
   const activeZone = useSelector(getUserZone);
-
+  const ipaddrpcsellerlist = process.env.REACT_APP_IPADDR + '/api/zone/get-pc-sellerlist'
   // edit
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/zone/get-pc-sellerlist", {
+    fetch(ipaddrpcsellerlist, {
       method: "POST",
       body: JSON.stringify({
         zoneid: activeZone,

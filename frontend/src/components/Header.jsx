@@ -43,7 +43,7 @@ export const Header = () => {
   };
 
   return (
-    <nav id="header" className="flex flex-row space-evenly">
+    <nav id="header" className="flex flex-row md:shrink">
       <div className="navbar gap-2 ">
         <div className="dropdown dropdown-bottom flex-1">
           <label className="btn glass rounded-btn" tabIndex={0}>
@@ -80,7 +80,7 @@ export const Header = () => {
         </div>
         <div className="flex-1">
           <button
-            className="btn btn-ghost text-bold text-lg md:text-xl"
+            className="btn btn-ghost w-[30%] text-bold text-lg md:text-sm"
             onClick={() => {
               navigateHome();
             }}

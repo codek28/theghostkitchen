@@ -6,22 +6,20 @@ const OnlinePayment = require("../../db/application data models/payment-models/O
 const { createPaymentID } = require("../../Scripts/IDGenerator");
 
 const paymentVerification = async (req, res) => {
+
   const orderid = sessionStorage.getItem("orderid");
+
   const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
     req.body;
-  const body = orderid + "|" + razorpay_payment_id;
 
-  const expectedSignature = crypto
-    .createHmac("sha256", process.env.Razorpay_API_SECRET2)
-    .update(body.toString())
-    .digest("hex");
-  console.log("sig received ", razorpay_signature);
-  console.log("sig generated ", expectedSignature);
+  let generated_signature = crypto.hmac_sha256(orderid + "|" + razorpay_payment_id, process.env.Razorpay_API_SECRET);
 
-  const isAuthenticPayment = expectedSignature === razorpay_signature;
+  const isAuthenticPayment = generated_signature === razorpay_signature;
 
+  const ipaddrredirect = process.env.REACT_USERAPP_URL + '/order'
   if (isAuthenticPayment) {
-    res.redirect(`http://localhost:3000/order/${razorpay_order_id}`);
+    res.redirect(ipaddrredirect);
+    console.log('signature verified')
   } else {
     res.status(400).json({
       success: false
@@ -38,7 +36,7 @@ const payInstance = new Razorpay({
 
 payRouter.post("/create-payment-intent", async (req, res) => {
   const options = {
-    amount: req.body.Amount,
+    amount: req.body.amount,
     currency: "INR"
   };
   try {
@@ -52,6 +50,8 @@ payRouter.post("/create-payment-intent", async (req, res) => {
     res.status(400).send({ error: err });
   }
 });
+
+// mongodb order below
 
 payRouter.post("/create-online-payment", async (req, res) => {
   const paydata = req.body;

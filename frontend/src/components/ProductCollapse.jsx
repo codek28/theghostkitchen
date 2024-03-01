@@ -17,6 +17,16 @@ const ProductCollapse = ({ product, DiscountObj }) => {
     menucode: "",
     productcode: ""
   });
+  const [customproduct, setCustomProduct] = useState({
+    productid: "",
+    productprice: 0,
+    discountpercent: 0,
+    selectedvariant: "",
+    addonlist: [],
+    addonprice: 0,
+    productname: ""
+  });
+
   const getProductName = (product) => {
     if (
       product.ProductCustomization?.Variant &&
@@ -31,17 +41,15 @@ const ProductCollapse = ({ product, DiscountObj }) => {
       return product.Name;
     }
   };
-  const [customproduct, setCustomProduct] = useState({
-    productid: "",
-    productprice: 0,
-    discountpercent: 0,
-    selectedvariant: "",
-    addonlist: [],
-    addonprice: 0,
-    productname: ""
-  });
+
+  // product name , id , priceog and selected variant working fine in cart
+  // create func to recheck ad-on list , add on price from cart - temporary soln check in cart
+
+  // if setCustomProduct always resets then its a problem
+  // create func to recalculate discount percent
 
   useEffect(() => {
+    let nestedstatediscountpercent = customproduct.discountpercent
     let productname = getProductName(product);
     setIDObj({
       categorycode: product.CategoryID,
@@ -51,7 +59,7 @@ const ProductCollapse = ({ product, DiscountObj }) => {
     setCustomProduct({
       productid: product.ID,
       productprice: product.PriceOriginal,
-      discountpercent: 0,
+      discountpercent: nestedstatediscountpercent,
       selectedvariant: "",
       addonlist: [],
       addonprice: 0,
@@ -64,19 +72,19 @@ const ProductCollapse = ({ product, DiscountObj }) => {
       <div className="dropdown">
         <div
           tabIndex={0}
-          className="collapse-title text-xl font-medium flex flex-row gap-4"
+          className="collapse-title text-xl font-medium flex flex-row md:grow gap-2 justify-start"
         >
           <ProductDisplay product={product} />
 
-          <DiscountInfoButton
-            DiscountObj={DiscountObj}
-            IDobj={idobj}
-            customproduct={customproduct}
-            setCustomProduct={setCustomProduct}
-          />
-
-          <Ratebutton customproduct={customproduct} />
-
+          <div className="flex flex-col gap-8">
+            <DiscountInfoButton
+              DiscountObj={DiscountObj}
+              IDobj={idobj}
+              customproduct={customproduct}
+              setCustomProduct={setCustomProduct}
+            />
+            <Ratebutton customproduct={customproduct} />
+          </div>
           <QuantityModButton customproduct={customproduct} />
         </div>
         <div

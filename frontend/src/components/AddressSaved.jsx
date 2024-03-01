@@ -6,9 +6,10 @@ import { getUid } from "../stores/user/userSlice";
 export const AddressSaved = () => {
   const [savedaddress, setSavedAddress] = useState([]);
   const userid = useSelector(getUid);
+  const ipaddrusergeo = process.env.REACT_APP_IPADDR + '/api/geo/get-user-geo';
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/geo/get-user-geo", {
+    fetch(ipaddrusergeo, {
       method: "POST",
       body: JSON.stringify({
         userid: userid

@@ -13,13 +13,12 @@ import {
   selectPaymentID,
   selectSuperDiscountAmount
 } from "../stores/payment/paymentSlice";
-import {
-  getOrderId,
-  getOrderPC
-} from "../stores/order/orderSlice";
+import { getOrderId, getOrderPC } from "../stores/order/orderSlice";
 
 export const usePaymentCreator = () => {
-  const [paycreatoralert, setPayCreatorAlert] = useState("payment not initialised");
+  const [paycreatoralert, setPayCreatorAlert] = useState(
+    "payment not initialised"
+  );
 
   const cartamount = useSelector(cartTotalPrice);
   const orderid = useSelector(getOrderId);
@@ -66,6 +65,8 @@ export const usePaymentCreator = () => {
 
   const userloginstatus = useSelector(getUserLogin);
 
+  // set payment method as a flag and edit db object as paid or unpaid
+
   useEffect(() => {
     const stateCheck = async () => {
       try {
@@ -82,7 +83,7 @@ export const usePaymentCreator = () => {
               TaxAmount: taxpayable
             },
             PayableAmount: totalpayable,
-            PaymentStatus: "UN-PAID",
+            PaymentStatus: "PAID",
             PaymentUser: {
               Name: username,
               Contact: userphone,
@@ -104,6 +105,8 @@ export const usePaymentCreator = () => {
 
     stateCheck();
   }, [
+    paymentid,
+    orderid,
     cartamount,
     cartdiscountpercent,
     deliverychargeamount,

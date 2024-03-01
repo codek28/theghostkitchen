@@ -6,9 +6,10 @@ import { getTab } from "../../stores/pageflow/pageSlice";
 export const CategoryStoryCard = ({ DiscountList }) => {
   const [categorystory, setCategoryStory] = useState([]);
   const activeCat = useSelector(getTab);
+  const ipaddrcatstory = process.env.REACT_APP_IPADDR + '/api/category/get-category-story'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/category/get-category-story", {
+    fetch(ipaddrcatstory, {
       method: "POST",
       body: JSON.stringify({
         catid: activeCat,

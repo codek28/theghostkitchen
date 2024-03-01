@@ -441,17 +441,17 @@ async function single_product_seed() {
   try {
     await client.connect();
 
-    const productscollection = client.db("test").collection("foodproducts")
+    const productscollection = client.db("test").collection("foodproducts");
     let product = [
       {
-        ID: "FOODPRD000126",
-        Name: "COLD COFFEE",
+        ID: "FOODPRD000017",
+        Name: "DAL TADKA",
         Description: "",
-        CategoryID: "GS-CAT021",
+        CategoryID: "GS-CAT003",
         FoodCategory: {
-          FoodType: "DRINK",
-          FoodAccredition: ["DRINK"],
-          FoodInstructions: "",
+          FoodType: "VEG",
+          FoodAccredition: ["HEALTHY"],
+          FoodInstructions: "Eat warm for best experience"
         },
         ProviderBasis: ["DELIVERY", "TAKEAWAY", "SERVE"],
         ProductCustomization: {
@@ -461,31 +461,45 @@ async function single_product_seed() {
               VariantConfig: [
                 {
                   ProductDefault: true,
-                  VariantName: "330 ML",
-                  VariantPrice: 79,
+                  VariantName: "REGULAR",
+                  VariantPrice: 160
                 },
                 {
                   ProductDefault: false,
-                  VariantName: "500 ML",
-                  VariantPrice: 159,
-                },
-              ],
-            },
+                  VariantName: "LARGE",
+                  VariantPrice: 210
+                }
+              ]
+            }
           ],
+          AddOn: [
+            {
+              AddOnName: "MASALA-PAPAD",
+              AddOnPrice: 50
+            },
+            {
+              AddOnName: "FRY-PAPAD",
+              AddOnPrice: 30
+            },
+            {
+              AddOnName: "ROASTED-PAPAD",
+              AddOnPrice: 20
+            }
+          ]
         },
-        PriceOriginal: 79,
+        PriceOriginal: 160,
         PreparationTime: 25,
         ProductVisibilityStatus: true,
-        ProductKeywords: ["MILK", "SWEET", "COFFEE", "COLD"],
+        ProductKeywords: [],
         ProductAdditionalDetails: {
           nutritionalValue: {},
-          Indegredients: {},
+          Indegredients: {}
         },
-        ProductImage: {},
-      },
+        ProductImage: {}
+      }
     ];
     await productscollection.insertMany(product);
-    console.log("ONLY food product - cold coffee -  Updated successfully");
+    console.log("ONLY food product - dal tadka -  Updated successfully");
   } catch (e) {
     console.error(e);
   } finally {
@@ -499,7 +513,8 @@ single_product_seed();
 
 // PRODUCTS SEED
 
-{/*
+{
+  /*
 
 async function product_seed() {
   const uri =
@@ -2228,4 +2243,5 @@ async function product_seed() {
 
 product_seed();
 
-*/}
+*/
+}

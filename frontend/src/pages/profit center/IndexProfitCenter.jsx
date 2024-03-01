@@ -9,9 +9,10 @@ export const IndexProfitCenter = ({ profitcenter }) => {
 
   const referencePC = useParams();
   const profitcenterid = referencePC.pcid;
+  const ipaddrpc = process.env.REACT_APP_IPADDR + '/api/profitcenter/get-pc'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/profitcenter/get-pc", {
+    fetch(ipaddrpc, {
       method: "POST",
       body: JSON.stringify({
         pcid: profitcenterid,

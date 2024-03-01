@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 export const UserDiscounts = ({ discountname, discountleft }) => {
   const dispatchFromUserDiscounts = useDispatch();
   const [userdiscountfetch, setUserDiscountFetch] = useState({});
+  const ipaddruserdis = process.env.REACT_APP_IPADDR + '/api/billing/get-cart-user-discount'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/billing/get-cart-user-discount", {
+    fetch(ipaddruserdis, {
       method: "POST",
       body: JSON.stringify({
         userdiscountcode: discountname

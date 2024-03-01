@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  clearOrderInit,
   createMongoOrder,
   getOrderInit,
   getOrderToken
@@ -41,6 +42,7 @@ export const usePlaceOnlineOrder = () => {
       (ordertoken === "")
     ) {
       setPlaceOnlineOrderAlert("Order Processing");
+      dispatchFromPlaceOnlineOrder(clearOrderInit())
       dispatchFromPlaceOnlineOrder(createMongoPayment(payobj));
       dispatchFromPlaceOnlineOrder(createMongoOrder(orderobj));
     } else if (
@@ -51,7 +53,7 @@ export const usePlaceOnlineOrder = () => {
       (paymentid !== "")
     ) {
       setPlaceOnlineOrderAlert("Order Placed");
-      navigateFromPlaceOnlineOrder("/order")
+      navigateFromPlaceOnlineOrder("/order");
     } else if (
       orderinit &
       userloginstatus &
@@ -94,7 +96,7 @@ export const usePlaceOnlineOrder = () => {
     ordertoken,
     paymentid,
     orderobj,
-    payobj,
+    payobj
   ]);
 
   return placeonlineorderalert;

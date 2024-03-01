@@ -7,9 +7,10 @@ import MenuButtonExtended from "../../components/MenuButtonExtended";
 export const MenuToCategoryCard = () => {
   const referenceurlparams = useParams();
   const [profitcentermenu, setProfitCenterMenu] = useState([]);
+  const ipaddrpcsellerlist = process.env.REACT_APP_IPADDR + '/api/profitcenter/get-pc-sellerlist'
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/profitcenter/get-pc-sellerlist", {
+    fetch(ipaddrpcsellerlist, {
       method: "POST",
       body: JSON.stringify({
         pcid: referenceurlparams.pcid,
